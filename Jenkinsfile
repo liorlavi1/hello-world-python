@@ -29,10 +29,17 @@ pipeline {
 
     stage('Push to dockerhub') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'pass', usernameVariable: 'user')]) {
+        withCredentials(bindings: [usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'pass', usernameVariable: 'user')]) {
           sh "docker login -u $user -p $pass"
           sh "docker push lidorlg/node-hello-new:${env.BUILD_NUMBER}"
         }
+
+      }
+    }
+
+    stage('Clean Workspace') {
+      steps {
+        cleanWs(cleanWhenSuccess: true, cleanWhenFailure: true, cleanWhenAborted: true)
       }
     }
 
