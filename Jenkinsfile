@@ -22,7 +22,7 @@ pipeline {
       steps {
         sh 'docker run -itd --name testy -p 8000:8000 liorlavi/hello-pipe:$BUILD_NUMBER'
         sleep 10
-        sh 'curl localhost:8000'
+        sh 'curl 10.0.0.73:8000'
         sh 'docker stop testy && docker rm testy'
         cleanWs(cleanWhenFailure: true, cleanWhenAborted: true)
       }
