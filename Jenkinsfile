@@ -20,7 +20,7 @@ pipeline {
 
     stage('Test') {
       steps {
-        sh 'docker run -itd --name testy 8000:8000 liorlavi/hello-pipe:$BUILD_NUMBER'
+        sh 'docker run -itd --name testy -p 8000:8000 liorlavi/hello-pipe:$BUILD_NUMBER'
         sleep 5
         sh 'curl localhost:8000'
         sh 'docker stop testy && docker rm testy'
