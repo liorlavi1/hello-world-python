@@ -20,9 +20,9 @@ pipeline {
 
     stage('Test') {
       steps {
-        sh 'docker run -itd --name testy -p 8000:8000 liorlavi/hello-pipe:$BUILD_NUMBER'
+        sh 'docker run -itd --name testy -p 8080:8080 liorlavi/hello-pipe:$BUILD_NUMBER'
         sleep 10
-        sh 'curl 10.0.0.73:8000'
+        sh 'curl localhost:8080'
         sh 'docker stop testy && docker rm testy'
         cleanWs(cleanWhenFailure: true, cleanWhenAborted: true)
       }
