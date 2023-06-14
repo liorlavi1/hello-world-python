@@ -24,7 +24,6 @@ pipeline {
         sleep 10
         sh 'curl localhost:8080'
         sh 'docker stop testy && docker rm testy'
-        cleanWs(cleanWhenFailure: true, cleanWhenAborted: true)
       }
     }
 
