@@ -14,19 +14,23 @@ pipeline {
 
     stage('Build') {
       steps {
-        sleep 5
+        sh 'docker build -t liorlavi/hello-pipe:$BUILD_NUMBER .'
       }
     }
 
     stage('Test') {
       steps {
+        sh 'docker run -itd --name testy 8000:8000 liorlavi/hello-pipe:$BUILD_NUMBER'
         sleep 5
+        sh 'curl localhost:8000'
+        sh 'docker stop testy && docker rm testy'
       }
     }
 
-    stage('Commit') {
+    stage('Push to dockerhub') {
       steps {
-        sleep 5
+        sh 'docker login'
+        sh 'docker push liorlavi/hello-pipe:$BUILD_NUMBER'
       }
     }
 
