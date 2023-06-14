@@ -32,6 +32,7 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'pass', usernameVariable: 'user')]) {
           sh "docker login -u $user -p $pass"
           sh "docker push lidorlg/node-hello-new:${env.BUILD_NUMBER}"
+        }
       }
     }
 
